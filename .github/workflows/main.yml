@@ -1,0 +1,34 @@
+name: Update Text File on CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create and update text file on ci-branch
+        run: |
+          git config --global user.name 'kartikjoshi21'
+          git config --global user.email 'karikjoshi21@gmail.com'
+          git fetch origin ci-branch:ci-branch
+          git checkout ci-branch
+          git log
+          git status
+          echo "Here step"
+          git show-ref
+          echo "Here step 1"
+          echo "$(date)" > update.txt
+          echo "Here step 2"
+          git add update.txt
+          echo "Here step 3"
+          git commit -m "Update text file on CI"
+          echo "Here step 4"
+          git push -u origin ci-branch 
+
